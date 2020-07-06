@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+	<meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Tic Tac Toe</h1>
+        <div class="row">
+            <div class="column text-center m-4">
+                <div id="pointer1">.</div>
+                <h4 class="scoreboard">Player 1</h4>
+                <div id="score1">0</div>
+            </div>
+            <div class="column text-center m-4">
+                <div id="pointer2">.</div>
+                <h4 class="scoreboard">Player 2</h4>
+                <div id="score2">0</div>
+            </div>
+            
+            
+                
+               
+
+        </div>
+
+        <div class="tabla">
+            <div  id="casuta_0" class="casuta" onclick="plasare(this)"></div>
+            <div  id="casuta_1" class="casuta" onclick="plasare(this)"></div>
+            <div  id="casuta_2" class="casuta" onclick="plasare(this)"></div>
+            <div  id="casuta_3" class="casuta" onclick="plasare(this)"></div>
+            <div  id="casuta_4" class="casuta" onclick="plasare(this)"></div>
+            <div  id="casuta_5" class="casuta" onclick="plasare(this)"></div>
+            <div  id="casuta_6" class="casuta" onclick="plasare(this)"></div>
+            <div  id="casuta_7" class="casuta" onclick="plasare(this)"></div>
+            <div  id="casuta_8" class="casuta" onclick="plasare(this)"></div>
+        </div>
+        <div id="win">
+            <h2 id="winner"></h2>
+            <button class="rematch btn btn-light" onclick="reset_Board()">Rematch!</button>
+        </div>
+    </div>
+    <script>
+        var board = ["", "", "", "", "", "", "", "", ""];
+        let player1 = "X";
+        let player2 = "O";
+        let player = player1;
+        let score1 = 0;
+        let score2 = 0;
+        document.getElementById('pointer1').style.visibility = "visible";
+        function plasare(e) {
+            
+            if (verifOcupat(parseInt((e.id)[(e.id).length-1])) == false) {
+                board[parseInt((e.id)[(e.id).length-1])] = player;
+                document.getElementById(e.id).innerHTML = player;
+                document.getElementById(e.id).classList.add("occupied");
+                
+                if (player == player1) {
+                    if (verifCampuri('X') == 1) {
+                        document.getElementById("winner").innerHTML = 'Player 1 won!';
+                        document.getElementById("win").style.display = "block";
+                        score1 += 1;
+                        document.getElementById("score1").innerHTML = score1.toString();
+                    } else if (isArrayFull(board) == true) {
+                        document.getElementById("winner").innerHTML = "It's draw!";
+                        document.getElementById("win").style.display = "block";
+                    }
+
+                    player = player2;
+                    document.getElementById('pointer2').style.visibility = "visible";
+                    document.getElementById('pointer1').style.visibility = "hidden";
+                }
+                else if (player == player2) {
+                    if (verifCampuri('O') == 1) {
+                        document.getElementById("winner").innerHTML = 'Player 2 won!';
+                        document.getElementById("win").style.display = "block";
+                        score2 += 1;
+                        document.getElementById("score2").innerHTML = score1.toString();
+                    }
+                    else if (isArrayFull(board) == true) {
+                        document.getElementById("winner").innerHTML = "It's draw!";
+                        document.getElementById("win").style.display = "block";
+                    }
+                    player = player1;
+                    document.getElementById('pointer2').style.visibility = "hidden";
+                    document.getElementById('pointer1').style.visibility = "visible";
+                }
+            }
+            else
+                console.log("casuta ocupata");
+
+        }
+
+        function verifOcupat(x) {
+            if (board[x] == 'X' || board[x] == 'O')
+                return true;
+            return false;
+        }
+
+        function verifCampuri(string) {
+            if ((board[0] == string && board[1] == string && board[2] == string)
+                || (board[3] == string && board[4] == string && board[5] == string)
+                || (board[6] == string && board[7] == string && board[8] == string)
+                || (board[0] == string && board[3] == string && board[6] == string)
+                || (board[1] == string && board[4] == string && board[7] == string)
+                || (board[2] == string && board[5] == string && board[8] == string)
+                || (board[0] == string && board[4] == string && board[8] == string)
+                || (board[2] == string && board[4] == string && board[6] == string))
+                return 1;
+        }
+
+        function reset_Board() {
+            player = player1;
+            board = ["", "", "", "", "", "", "", "", ""];
+            document.getElementById("winner").innerHTML = '';
+            document.getElementById("win").style.display = "none";
+            document.querySelectorAll('.casuta').forEach(el => el.innerHTML='');
+            document.querySelectorAll('.casuta').forEach(el => el.classList.remove('occupied'));
+
+        }
+
+        function isArrayFull(arr) {
+            for (var i = 0; i < 9; i++) {
+                if ('undefined' == typeof arr[i] || null === arr[i] || arr[i]=='') {
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

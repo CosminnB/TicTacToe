@@ -1,0 +1,85 @@
+﻿body {
+    margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Lato;
+}
+.container{
+   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+}
+.tabla {
+  display: grid;
+  width: 300px;
+  height: 300px;
+  grid-template-columns: auto auto auto;
+  position:relative;
+}
+.casuta {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  border: 3px solid black;
+  transition: background 0.2s ease-in-out;
+}
+
+.casuta:hover {
+  cursor: pointer;
+  background: #0ff30f;
+}
+
+.occupied:hover {
+  background: #ff3a3a;
+}
+
+#casuta_0,#casuta_1,#casuta_2{
+    border-top:none;
+}
+#casuta_0,#casuta_3,#casuta_6{
+    border-left:none;
+}
+#casuta_6,#casuta_7,#casuta_8{
+    border-bottom:none;
+}
+#casuta_2,#casuta_5,#casuta_8{
+    border-right:none;
+}
+#win{
+    position:absolute;
+    top:230px;
+    width:100%;
+    height:450px;
+    font-size:60px;
+    text-align:center;
+    align-items:center;
+    background-color:rgba(0,0,0,0.3);
+    z-index:900;
+    color:white;
+    display:none;
+    padding:100px;
+    -webkit-animation: fadein 2s;
+    -moz-animation: fadein 2s; 
+    -ms-animation: fadein 2s; 
+    -o-animation: fadein 2s; 
+    animation: fadein 2s;
+}
+@keyframes fadein{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+.rematch{
+    margin-top:50px;
+}
+#pointer1,#pointer2{
+    font-size:50px;
+    visibility:hidden;
+    
+}
